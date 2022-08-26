@@ -45,7 +45,7 @@ def readInput():
     f = open('2015-01.txt', 'r', encoding='utf-8')
     s = f.read()
     f.close()
-    return s
+    return s.strip()
 
 
 if __name__ == '__main__':
