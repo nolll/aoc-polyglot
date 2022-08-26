@@ -9,14 +9,17 @@ def main():
 
 
 def run(lines):
-    sum = 0
+    paper = 0
+    ribbon = 0
     for line in lines:
         parts = line.split('x')
         w = int(parts[0])
         h = int(parts[1])
         d = int(parts[2])
-        sum += getRequiredPaper(w, h, d)
-    print(sum)
+        paper += getRequiredPaper(w, h, d)
+        ribbon += getRequiredRibbon(w, h, d)
+    print(paper)
+    print(ribbon)
 
 
 def runReal():
@@ -27,6 +30,8 @@ def runReal():
 def runTests():
     print(getRequiredPaper(2, 3, 4))  # 58
     print(getRequiredPaper(1, 1, 10))  # 43
+    print(getRequiredRibbon(2, 3, 4))  # 34
+    print(getRequiredRibbon(1, 1, 10))  # 14
 
 
 def getRequiredPaper(w, h, d):
@@ -37,6 +42,13 @@ def getRequiredPaper(w, h, d):
     areas.sort()
     smallest = areas[0]
     return (a + b + c) * 2 + smallest
+
+
+def getRequiredRibbon(w, h, d):
+    sides = [w, h, d]
+    sides.sort()
+    bow = w * h * d
+    return (sides[0] + sides[1]) * 2 + bow
 
 
 def readInputLines():
