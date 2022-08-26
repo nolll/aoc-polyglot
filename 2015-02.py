@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import inputreader
 
 
 def main():
@@ -23,7 +24,7 @@ def run(lines):
 
 
 def runReal():
-    input = readInputLines()
+    input = inputreader.readLines()
     run(input)
 
 
@@ -49,13 +50,6 @@ def getRequiredRibbon(w, h, d):
     sides.sort()
     bow = w * h * d
     return (sides[0] + sides[1]) * 2 + bow
-
-
-def readInputLines():
-    f = open('2015-02.txt', 'r', encoding='utf-8')
-    s = f.readlines()
-    f.close()
-    return s
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import inputreader
 
 
 def main():
@@ -25,7 +26,7 @@ def run(s):
 
 
 def runReal():
-    input = readInput()
+    input = inputreader.read()
     run(input)
 
 
@@ -39,13 +40,6 @@ def runTests():
     run('))(')  # -1
     run(')))')  # -3
     run(')())())')  # -3
-
-
-def readInput():
-    f = open('2015-01.txt', 'r', encoding='utf-8')
-    s = f.read()
-    f.close()
-    return s.strip()
 
 
 if __name__ == '__main__':
