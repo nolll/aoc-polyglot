@@ -17,4 +17,4 @@ def readLines():
 
 def getFilename():
     inputFileName = sys.argv[0].replace('.py', '.txt')
-    return f'input/{inputFileName}'
+    return f'../input/{inputFileName}'
