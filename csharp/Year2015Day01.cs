@@ -2,12 +2,12 @@ namespace Aoc;
 
 public static class Year2015Day01
 {
-    public static void Run(string s)
+    public static void Run(string input)
     {
         var floor = 0;
         var firstTimeInBasement = 0;
         var moves = 0;
-        var chars = s.ToCharArray();
+        var chars = input.ToCharArray();
 
         foreach (var c in chars)
         {

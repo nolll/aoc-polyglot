@@ -18,6 +18,8 @@
             {
                 if (day == "1")
                     Year2015Day01.Run(input);
+                else if (day == "2")
+                    Year2015Day02.Run(input);
                 else
                     Console.WriteLine($"Day {day} {year} not found");
             }
