@@ -1,1 +1,6 @@
+# python
 __pycache__
+
+# ts
+ts/node_modules
+ts/yarn.lock
