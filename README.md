@@ -2,6 +2,12 @@
 
 Solutions to a few Advent of Code puzzles in different languages
 
+## c#
+
+```
+dotnet run aoc
+```
+
 ## go
 
 ```
