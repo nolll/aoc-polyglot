@@ -5,7 +5,7 @@ Solutions to a few Advent of Code puzzles in different languages
 ## c#
 
 ```
-dotnet run aoc
+dotnet run aoc -- [year] [day]
 ```
 
 ## go
@@ -23,7 +23,7 @@ node 2015-01.js
 ## python
 
 ```
-python 2015-01.py
+python aoc.py [year] [day]
 ```
 
 ## ruby

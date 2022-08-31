@@ -2,12 +2,6 @@ namespace Aoc;
 
 public static class Year2015Day01
 {
-    public static void Run()
-    {
-        var input = ReadInput();
-        Run(input);
-    }
-
     public static void Run(string s)
     {
         var floor = 0;
@@ -34,10 +28,5 @@ public static class Year2015Day01
 
         Console.WriteLine(floor);
         Console.WriteLine(firstTimeInBasement);
-    }
-
-    private static string ReadInput()
-    {
-        return System.IO.File.ReadAllText("../input/2015-01.txt");
     }
 }
