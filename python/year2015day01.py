@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-import inputreader
-
-
-def main():
-    input = inputreader.read()
-    run(input)
-
-
 def run(s):
     floor = 0
     firstTimeInBasement = 0
@@ -22,7 +14,3 @@ def run(s):
                 firstTimeInBasement = moves
     print(floor)
     print(firstTimeInBasement)
-
-
-if __name__ == '__main__':
-    main()

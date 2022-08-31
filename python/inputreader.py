@@ -1,20 +1,21 @@
 import sys
 
 
-def read():
-    f = open(getFilename(), 'r', encoding='utf-8')
+def read(year, day):
+    f = open(getFilename(year, day), 'r', encoding='utf-8')
     s = f.read()
     f.close()
     return s.strip()
 
 
-def readLines():
-    f = open(getFilename(), 'r', encoding='utf-8')
+def readLines(year, day):
+    f = open(getFilename(year, day), 'r', encoding='utf-8')
     s = f.readlines()
     f.close()
     return s
 
 
-def getFilename():
-    inputFileName = sys.argv[0].replace('.py', '.txt')
-    return f'../input/{inputFileName}'
+def getFilename(year, day):
+    if (len(day) == 1):
+        day = f'0{day}'
+    return f'../input/{year}-{day}.txt'

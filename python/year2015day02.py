@@ -1,16 +1,9 @@
 #!/usr/bin/env python
 
-import inputreader
-
-
-def main():
-    input = inputreader.readLines()
-    run(input)
-
-
-def run(lines):
+def run(input):
     paper = 0
     ribbon = 0
+    lines = input.splitlines()
     for line in lines:
         parts = line.split('x')
         w = int(parts[0])
@@ -37,7 +30,3 @@ def getRequiredRibbon(w, h, d):
     sides.sort()
     bow = w * h * d
     return (sides[0] + sides[1]) * 2 + bow
-
-
-if __name__ == '__main__':
-    main()
