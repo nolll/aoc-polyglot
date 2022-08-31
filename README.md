@@ -1,3 +1,33 @@
 # aoc-polyglot
 
-Solutions to Advent of Code puzzles in many different languages
+Solutions to a few Advent of Code puzzles in different languages
+
+## go
+
+```
+go run 2015-01.go
+```
+
+## javascript
+
+```
+node 2015-01.js
+```
+
+## python
+
+```
+python 2015-01.py
+```
+
+## ruby
+
+```
+ruby 2015-01.rb
+```
+
+## typescript
+
+```
+npx ts-node 2015-01.ts
+```
