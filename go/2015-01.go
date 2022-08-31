@@ -21,9 +21,9 @@ func run(s string) {
 			floor += 1
 		} else {
 			floor -= 1
-		}
-		if firstTimeInBasement == 0 && floor < 0 {
-			firstTimeInBasement = moves
+			if firstTimeInBasement == 0 && floor < 0 {
+				firstTimeInBasement = moves
+			}
 		}
 	}
 	println(floor)
