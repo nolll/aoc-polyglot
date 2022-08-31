@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
-import sys
 import inputreader
 
 
 def main():
-    # runTests()
-    runReal()
+    input = inputreader.readLines()
+    run(input)
 
 
 def run(lines):
@@ -21,18 +20,6 @@ def run(lines):
         ribbon += getRequiredRibbon(w, h, d)
     print(paper)
     print(ribbon)
-
-
-def runReal():
-    input = inputreader.readLines()
-    run(input)
-
-
-def runTests():
-    print(getRequiredPaper(2, 3, 4))  # 58
-    print(getRequiredPaper(1, 1, 10))  # 43
-    print(getRequiredRibbon(2, 3, 4))  # 34
-    print(getRequiredRibbon(1, 1, 10))  # 14
 
 
 def getRequiredPaper(w, h, d):

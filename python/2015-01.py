@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
-import sys
 import inputreader
 
 
 def main():
-    # runTests()
-    runReal()
+    input = inputreader.read()
+    run(input)
 
 
 def run(s):
@@ -23,23 +22,6 @@ def run(s):
                 firstTimeInBasement = moves
     print(floor)
     print(firstTimeInBasement)
-
-
-def runReal():
-    input = inputreader.read()
-    run(input)
-
-
-def runTests():
-    run('(())')  # 0
-    run('()()')  # 0
-    run('(((')  # 3
-    run('(()(()(')  # 3
-    run('))(((((')  # 3
-    run('())')  # -1
-    run('))(')  # -1
-    run(')))')  # -3
-    run(')())())')  # -3
 
 
 if __name__ == '__main__':
