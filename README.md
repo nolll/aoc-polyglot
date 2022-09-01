@@ -2,28 +2,28 @@
 
 Solutions to a few Advent of Code puzzles in different languages
 
-## c#
+## 2015 day 1: C#
 
 ```
-dotnet run aoc -- [year] [day]
+dotnet run aoc
+```
+
+## 2015 day 2: Python
+
+```
+python aoc.py
+```
+
+## 2015 day 3: Javascript
+
+```
+node aoc.js
 ```
 
 ## go
 
 ```
 go run 2015-01.go
-```
-
-## javascript
-
-```
-node 2015-01.js
-```
-
-## python
-
-```
-python aoc.py [year] [day]
 ```
 
 ## ruby
