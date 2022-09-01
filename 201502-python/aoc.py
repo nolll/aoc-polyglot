@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+import sys
+
+
+def main():
+    input = readInput()
+    run(input)
+
+
 def run(input):
     paper = 0
     ribbon = 0
@@ -30,3 +38,14 @@ def getRequiredRibbon(w, h, d):
     sides.sort()
     bow = w * h * d
     return (sides[0] + sides[1]) * 2 + bow
+
+
+def readInput():
+    f = open("input.txt", 'r', encoding='utf-8')
+    s = f.read()
+    f.close()
+    return s.strip()
+
+
+if __name__ == '__main__':
+    main()

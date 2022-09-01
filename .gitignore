@@ -1,9 +1,9 @@
 # csharp
-csharp/bin
-csharp/obj
+*csharp*/bin
+*csharp*/obj
 
 # python
-__pycache__
+*python*/__pycache__
 
 # ts
 ts/node_modules
