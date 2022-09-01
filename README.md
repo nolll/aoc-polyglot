@@ -20,10 +20,10 @@ python aoc.py
 node aoc.js
 ```
 
-## go
+## 2015 day 4: Go
 
 ```
-go run 2015-01.go
+go run aoc.go
 ```
 
 ## ruby
