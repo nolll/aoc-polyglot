@@ -32,8 +32,8 @@ go run aoc.go
 ruby aoc.rb
 ```
 
-## typescript
+## 2015 day 6: Typescript
 
 ```
-npx ts-node 2015-01.ts
+npx ts-node aoc.ts
 ```
