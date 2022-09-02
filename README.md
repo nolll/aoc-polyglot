@@ -26,10 +26,10 @@ node aoc.js
 go run aoc.go
 ```
 
-## ruby
+## 2015 day 5: Ruby
 
 ```
-ruby 2015-01.rb
+ruby aoc.rb
 ```
 
 ## typescript
