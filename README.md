@@ -37,3 +37,9 @@ ruby aoc.rb
 ```
 npx ts-node aoc.ts
 ```
+
+## 2015 day 7: Java
+
+```
+javac aoc.java;java aoc
+```
