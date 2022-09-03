@@ -2,6 +2,9 @@
 *csharp*/bin
 *csharp*/obj
 
+# java
+*java*/*.class
+
 # python
 *python*/__pycache__
 
