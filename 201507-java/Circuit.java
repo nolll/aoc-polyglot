@@ -10,13 +10,13 @@ public class Circuit
         this.input = input;
     }
 
-    public short RunOne(String key)
+    public char RunOne(String key)
     {
         this.wires = GetWires(this.input);
         return this.wires.get(key).Signal();
     }
 
-    public short RunTwo(String readKey, String writeKey)
+    public char RunTwo(String readKey, String writeKey)
     {
         var result1 = RunOne(readKey);
         this.wires = GetWires(this.input);

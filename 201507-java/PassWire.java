@@ -5,9 +5,9 @@ public class PassWire extends Wire
     private final Map<String, Wire> dictionary;
     private final String a;
 
-    private Short WireASignal(){
+    private char WireASignal(){
         try{
-            short n = Short.parseShort(this.a);
+            char n = (char)Integer.parseInt(this.a);
             return n;
         }
         catch(NumberFormatException e)
@@ -16,9 +16,9 @@ public class PassWire extends Wire
         }
     }
 
-    public Short Signal()
+    public char Signal()
     {
-        if (this.signal == null)
+        if (this.signal == Character.MIN_VALUE)
             this.signal = WireASignal();
         return this.signal;
     }

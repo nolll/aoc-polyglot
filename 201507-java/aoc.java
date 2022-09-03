@@ -3,12 +3,10 @@ import java.io.*;
 public class aoc {
     public static void main(String args[]) {
         var circuit = new Circuit(readInput());
-        var part1 = circuit.RunOne("a");
+        var part1 = (int)circuit.RunOne("a");
+        var part2 = (int)circuit.RunTwo("a", "b");
 
         System.out.println(part1);
-
-        var part2 = circuit.RunTwo("a", "b");
-
         System.out.println(part2);
     }
 

@@ -6,14 +6,14 @@ public class LeftShiftWire extends Wire
     private final String a;
     private final short distance;
 
-    private short WireASignal(){
+    private char WireASignal(){
         return this.dictionary.get(this.a).Signal();
     }
 
-    public Short Signal()
+    public char Signal()
     {
-        if (this.signal == null)
-            this.signal = (short)(WireASignal() << this.distance);
+        if (this.signal == Character.MIN_VALUE)
+            this.signal = (char)(WireASignal() << this.distance);
         return this.signal;
     }
         

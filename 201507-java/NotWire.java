@@ -5,14 +5,14 @@ public class NotWire extends Wire
     private final Map<String, Wire> dictionary;
     private final String a;
 
-    private short WireASignal(){
+    private char WireASignal(){
         return this.dictionary.get(this.a).Signal();
     }
         
-    public Short Signal()
+    public char Signal()
     {
-        if (this.signal == null)
-            this.signal = (short)~WireASignal();
+        if (this.signal == Character.MIN_VALUE)
+            this.signal = (char)~WireASignal();
         return this.signal;
     }
 

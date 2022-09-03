@@ -6,9 +6,9 @@ public class OrWire extends Wire
     private final String a;
     private final String b;
 
-    private Short WireASignal(){
+    private char WireASignal(){
         try{
-            short n = Short.parseShort(this.a);
+            char n = (char)Integer.parseInt(this.a);
             return n;
         }
         catch(NumberFormatException e)
@@ -17,9 +17,9 @@ public class OrWire extends Wire
         }
     }
 
-    private Short WireBSignal(){
+    private char WireBSignal(){
         try{
-            short n = Short.parseShort(this.b);
+            char n = (char)Integer.parseInt(this.b);
             return n;
         }
         catch(NumberFormatException e)
@@ -28,10 +28,10 @@ public class OrWire extends Wire
         }
     }
 
-    public Short Signal()
+    public char Signal()
     {
-        if (this.signal == null)
-            this.signal = (short)(WireASignal() | WireBSignal());
+        if (this.signal == Character.MIN_VALUE)
+            this.signal = (char)(WireASignal() | WireBSignal());
         return this.signal;
     }
 

@@ -1,10 +1,10 @@
 public abstract class Wire
 {
-    protected Short signal;
+    protected char signal = Character.MIN_VALUE;
 
-    public abstract Short Signal();
+    public abstract char Signal();
 
-    public void SetSignal(Short signal)
+    public void SetSignal(char signal)
     {
         this.signal = signal;
     }
