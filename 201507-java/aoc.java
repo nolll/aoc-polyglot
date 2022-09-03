@@ -6,6 +6,10 @@ public class aoc {
         var part1 = circuit.RunOne("a");
 
         System.out.println(part1);
+
+        var part2 = circuit.RunTwo("a", "b");
+
+        System.out.println(part2);
     }
 
     private static String readInput(){

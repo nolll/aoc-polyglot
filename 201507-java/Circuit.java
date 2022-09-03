@@ -28,9 +28,10 @@ public class Circuit
     {
         var strings = input.split("\n");
         var wires = new HashMap<String, Wire>();
+
         for (String s: strings)
         {
-            var commandAndName = s.split("->");
+            var commandAndName = s.trim().split("->");
             var commandAndValues = commandAndName[0].trim().split(" ");
             var name = commandAndName[1].trim();
 
@@ -52,22 +53,22 @@ public class Circuit
                 var command = commandAndValues[1].trim();
                 var b = commandAndValues[2].trim();
 
-                if (command == "AND")
+                if (command.equals("AND"))
                 {
                     wires.put(name, new AndWire(wires, a, b));
                 }
 
-                else if (command == "OR")
+                else if (command.equals("OR"))
                 {
                     wires.put(name, new OrWire(wires, a, b));
                 }
 
-                else if (command == "LSHIFT")
+                else if (command.equals("LSHIFT"))
                 {
                     wires.put(name, new LeftShiftWire(wires, a, Short.parseShort(b)));
                 }
 
-                else if (command == "RSHIFT")
+                else if (command.equals("RSHIFT"))
                 {
                     wires.put(name, new RightShiftWire(wires, a, Short.parseShort(b)));
                 }
