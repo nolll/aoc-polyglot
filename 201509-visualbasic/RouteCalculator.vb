@@ -1,11 +1,11 @@
 Public Class RouteCalculator
-    Private _distanceDictionary As Dictionary(Of String, Integer)
+    Private DistanceDictionary As Dictionary(Of String, Integer)
     Public ShortestDistance As Integer
     Public LongestDistance As Integer
 
     Public Sub Run(input As String)
         Dim distances = GetDistances(input)
-        _distanceDictionary = GetDistanceDictionary(distances)
+        DistanceDictionary = GetDistanceDictionary(distances)
         Dim locations = GetLocations(distances)
         Dim routes = GetRoutes(locations)
         ShortestDistance = FindShortestDistance(routes)
@@ -46,10 +46,10 @@ Public Class RouteCalculator
     Private Function CalculateRouteLength(route As List(Of String)) As Integer
         Dim totalDistance = 0
         For i = 0 To route.Count - 2 Step 1
-            dim a = route(i)
-            dim b = route(i + 1)
-            dim key = GetKey(a, b)
-            dim distance = _distanceDictionary(key)
+            Dim a = route(i)
+            Dim b = route(i + 1)
+            Dim key = GetKey(a, b)
+            Dim distance = DistanceDictionary(key)
             totalDistance = totalDistance + distance
         Next i
         
