@@ -49,3 +49,9 @@ javac aoc.java;java aoc
 ```
 lein run
 ```
+
+## 2015 day 9: Visual Basic
+
+```
+dotnet run
+```
