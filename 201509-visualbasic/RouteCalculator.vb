@@ -1,65 +1,60 @@
-' using System.Collections.Generic;
-' using System.Linq;
-' using Core.Common.Combinatorics;
-' using Core.Common.Strings;
-
 Public Class RouteCalculator
     Private _distanceDictionary As Dictionary(Of String, Integer)
     Public ShortestDistance As Integer
     Public LongestDistance As Integer
 
-    Public Sub Init(input As String)
+    Public Sub Run(input As String)
         Dim distances = GetDistances(input)
         _distanceDictionary = GetDistanceDictionary(distances)
         Dim locations = GetLocations(distances)
         Dim routes = GetRoutes(locations)
-'         ShortestDistance = FindShortestDistance(routes);
-'         LongestDistance = FindLongestDistance(routes);
+        ShortestDistance = FindShortestDistance(routes)
+        LongestDistance = FindLongestDistance(routes)
     End Sub
 
-'     private int FindShortestDistance(List<List<string>> routes)
-'     {
-'         int? shortestRoute = null;
-'         foreach (var route in routes)
-'         {
-'             var routeLength = CalculateRouteLength(route.ToList());
-'             if (shortestRoute == null || routeLength < shortestRoute.Value)
-'                 shortestRoute = routeLength;
-'         }
-'         return shortestRoute ?? 0;
-'     }
+    Private Function FindShortestDistance(routes As List(Of List(Of String))) As Integer
+        Dim shortestRoute As Integer = Nothing
+        For Each route in routes
+            Dim routeLength = CalculateRouteLength(route)
+            If shortestRoute = Nothing Or routeLength < shortestRoute
+                shortestRoute = routeLength
+            End If
+        Next
+        If shortestRoute = Nothing
+            Return 0
+        End If
 
-'     private int FindLongestDistance(List<List<string>> routes)
-'     {
-'         int? longestRoute = null;
-'         foreach (var route in routes)
-'         {
-'             var routeLength = CalculateRouteLength(route.ToList());
-'             if (longestRoute == null || routeLength > longestRoute.Value)
-'                 longestRoute = routeLength;
-'         }
-'         return longestRoute ?? 0;
-'     }
+        Return shortestRoute
+    End Function
 
-'     private int CalculateRouteLength(IList<string> route)
-'     {
-'         var totalDistance = 0;
-'         for (var i = 0; i < route.Count - 1; i++)
-'         {
-'             var from = route[i];
-'             var to = route[i + 1];
-'             var key = GetKey(from, to);
-'             var distance = _distanceDictionary[key];
-'             totalDistance += distance;
-'         }
+    Private Function FindLongestDistance(routes As List(Of List(Of String))) As Integer
+        Dim longestRoute As Integer = Nothing
+        For Each route in routes
+            Dim routeLength = CalculateRouteLength(route.ToList())
+            If longestRoute = Nothing Or routeLength > longestRoute
+                longestRoute = routeLength
+            End If
+        Next
 
-'         return totalDistance;
-'     }
+        If longestRoute = Nothing
+            Return 0
+        End If
 
-'     private List<List<string>> GetRoutes(IList<string> locations)
-'     {
-'         return PermutationGenerator.GetPermutations(locations).Select(o => o.ToList()).ToList();
-'     }
+        Return longestRoute
+    End Function
+
+    Private Function CalculateRouteLength(route As List(Of String)) As Integer
+        Dim totalDistance = 0
+        For i = 0 To route.Count - 2 Step 1
+            dim a = route(i)
+            dim b = route(i + 1)
+            dim key = GetKey(a, b)
+            dim distance = _distanceDictionary(key)
+            totalDistance = totalDistance + distance
+        Next i
+        
+        Return totalDistance
+    End Function
 
     Private Function GetLocations(distances As List(Of Distance)) As List(Of String)
         Dim locations As New List(Of String)

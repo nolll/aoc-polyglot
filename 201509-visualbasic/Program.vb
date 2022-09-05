@@ -5,7 +5,9 @@ Module Program
     Sub Main(args As String())
         Dim calculator As new RouteCalculator
         Dim input as String = ReadInput()
-        calculator.Init(input)
+        calculator.Run(input)
+        Console.WriteLine(calculator.ShortestDistance)
+        Console.WriteLine(calculator.LongestDistance)
     End Sub
 
     Private Function ReadInput()
