@@ -43,3 +43,9 @@ npx ts-node aoc.ts
 ```
 javac aoc.java;java aoc
 ```
+
+## 2015 day 8: Clojure
+
+```
+lein run
+```
