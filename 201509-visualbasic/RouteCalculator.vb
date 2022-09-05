@@ -4,15 +4,14 @@
 ' using Core.Common.Strings;
 
 Public Class RouteCalculator
-    Private _distanceDictionary As Dictionary(Of String, String)
+    Private _distanceDictionary As Dictionary(Of String, Integer)
     Public ShortestDistance As Integer
     Public LongestDistance As Integer
 
     Public Sub Init(input As String)
         Dim distances = GetDistances(input)
-'         var distances = GetDistances(input);
-'         _distanceDictionary = GetDistanceDictionary(distances);
-'         var locations = GetLocations(distances);
+        _distanceDictionary = GetDistanceDictionary(distances)
+        Dim locations = GetLocations(distances)
 '         var routes = GetRoutes(locations);
 '         ShortestDistance = FindShortestDistance(routes);
 '         LongestDistance = FindLongestDistance(routes);
@@ -62,31 +61,29 @@ Public Class RouteCalculator
 '         return PermutationGenerator.GetPermutations(locations).Select(o => o.ToList()).ToList();
 '     }
 
-'     private IList<string> GetLocations(IList<Distance> distances)
-'     {
-'         var locations = new List<string>();
-'         foreach (var distance in distances)
-'         {
-'             if(!locations.Contains(distance.From))
-'                 locations.Add(distance.From);
-'             if (!locations.Contains(distance.To))
-'                 locations.Add(distance.To);
-'         }
+    Private Function GetLocations(distances As List(Of Distance)) As List(Of String)
+        Dim locations As New List(Of String)
+        For Each distance in distances
+            If Not locations.Contains(distance.A)
+                locations.Add(distance.A)
+            End If
+            If Not locations.Contains(distance.B)
+                locations.Add(distance.B)
+            End If
+        Next
 
-'         return locations;
-'     }
+        Return locations
+    End Function
 
-'     private IDictionary<string, int> GetDistanceDictionary(IList<Distance> distances)
-'     {
-'         var dictionary = new Dictionary<string, int>();
-'         foreach (var distance in distances)
-'         {
-'             dictionary.Add(GetKey(distance.From, distance.To), distance.Dist);
-'             dictionary.Add(GetKey(distance.To, distance.From), distance.Dist);
-'         }
+    Private Function GetDistanceDictionary(distances As List(Of Distance)) As Dictionary(Of String, Integer)
+        Dim dictionary As New Dictionary(Of String, Integer)
+        For Each distance In distances
+            dictionary.Add(GetKey(distance.A, distance.B), distance.Dist)
+            dictionary.Add(GetKey(distance.B, distance.A), distance.Dist)
+        Next
 
-'         return dictionary;
-'     }
+        Return dictionary
+    End Function
 
     Private Function GetKey(a As String, b As String)
         Return $"{a}->{b}"
