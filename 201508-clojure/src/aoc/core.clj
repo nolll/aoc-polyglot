@@ -10,6 +10,27 @@
   )
 )
 
+(defn remove-quotes
+  [s]
+  (
+    clojure.string/replace s "\\\"" "-"
+  )
+)
+
+(defn remove-backslashes
+  [s]
+  (
+    clojure.string/replace s "\\\\" "-"
+  )
+)
+
+(defn remove-ascii
+  [s]
+  (
+    clojure.string/replace s #"\\x.." "-"
+  )
+)
+
 (defn count-code
   [s]
   (count s)
@@ -17,7 +38,19 @@
 
 (defn count-memory
   [s]
-  (count s)
+  (
+    count(
+      remove-ascii (
+        remove-backslashes (
+          remove-quotes (
+            subs s 1 (
+              - (count s) 1
+            )
+          )
+        )
+      )
+    )
+  )
 )
 
 (defn count-encoded
@@ -38,15 +71,15 @@
   (
     let [
       rows (clojure.string/split-lines (read-input))
-      codeCount (reduce + (map count-code rows))
-      memoryCount (reduce + (map count-memory rows))
-      encodedCount (reduce + (map count-encoded rows))
+      code-count (reduce + (map count-code rows))
+      memory-count (reduce + (map count-memory rows))
+      encoded-count (reduce + (map count-encoded rows))
     ]
     (
-      println codeCount
+      println (- code-count memory-count)
     )
     (
-      println (- encodedCount codeCount)
+      println (- encoded-count code-count)
     )
   )
 )
