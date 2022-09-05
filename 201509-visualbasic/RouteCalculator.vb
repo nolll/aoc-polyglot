@@ -12,7 +12,7 @@ Public Class RouteCalculator
         Dim distances = GetDistances(input)
         _distanceDictionary = GetDistanceDictionary(distances)
         Dim locations = GetLocations(distances)
-'         var routes = GetRoutes(locations);
+        Dim routes = GetRoutes(locations)
 '         ShortestDistance = FindShortestDistance(routes);
 '         LongestDistance = FindLongestDistance(routes);
     End Sub
@@ -103,4 +103,19 @@ Public Class RouteCalculator
         return distance
     End Function
 
+    Private Function GetRoutes(locations As List(Of String)) As List(Of List(Of String))
+        Return GetPermutations(locations).Select(Function(o) o.ToList()).ToList()
+    End Function
+
+    Private Function GetPermutations(strings As List(Of String)) As List(Of List(Of String))
+        Return GetPermutations(strings, strings.Count).Select(Function(o) o.ToList()).ToList()
+    End Function
+
+    Private Function GetPermutations(list As List(Of String), length As Integer) As List(Of List(Of string))
+        If length = 1
+            Return list.Select(Function(t) New List(Of String) From {t}).ToList()
+        End If
+
+        Return GetPermutations(list, length - 1).SelectMany(Function(t) list.Where(Function(e) Not t.Contains(e)).ToList(), Function(t1, t2) t1.Concat(New List(Of String) From {t2}).ToList()).ToList()
+    End Function
 End Class
