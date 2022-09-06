@@ -1,21 +1,40 @@
-﻿printfn "Hello from F#"
+﻿open System
 
-let GenerateString part = $"{part.count}{part.character}"
+type Part =
+    struct
+        val character: char
+        val count: int
+    end
 
-let GenerateStringFromList parts =
-    let s = ""
+// let GenerateString (part: Part) = $"{part.count}{part.character}"
 
-    for part in parts do
-        s = s + GenerateString(part)
+// let GenerateStringFromList parts =
+//     let s = ""
+//     let strings = List.iter (GenerateString) parts
 
-let NextString s iterations iteration =
-    if iteration >= iterations then
-        s
-    else
-        NextString(GenerateStringFromList(GetParts(s)), iterations, iteration + 1)
+//     String.concat "" strings
 
-let LookAndSayGame input iterations = NextString(input, iterations, 0)
+// let GetParts s = [ new Part('a', 0) ]
 
+let NextString s iterations iteration = s
+// if iteration >= iterations then
+//     s
+// else
+//     NextString(GenerateStringFromList(GetParts(s)), iterations, iteration + 1)
+
+let LookAndSayGame input iterations = NextString input iterations 0
+
+let GetParts s = s |> Seq.countBy id
+
+// let GetParts s
+//     let stringlength = String.length s
+//     let looplength = stringlength - 1
+//     seq{
+//         for i in 0..looplength do
+//             let c = s[i]
+//             for j in i..looplength
+
+//     }
 // private IList<Part> GetParts(string s)
 // {
 //     var parts = new List<Part>();
@@ -34,8 +53,10 @@ let LookAndSayGame input iterations = NextString(input, iterations, 0)
 //     return parts;
 // }
 
-type Part =
-    struct
-        val character: char
-        val count: int
-    end
+//let result = LookAndSayGame "1113222113" 40
+//printfn "%s" result
+
+let r = GetParts "1113222113"
+let last = List.ofSeq r
+let (a, b) = last
+printfn a
