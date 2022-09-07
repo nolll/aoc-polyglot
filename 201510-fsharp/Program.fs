@@ -54,12 +54,11 @@ let rec nextString (s: string) (iterations: int) (iteration: int) : string =
 
 let lookAndSayGame input iterations = nextString input iterations 0
 
-let input = "1113222113"
+let run iterations =
+    let input = "1113222113"
+    let result = lookAndSayGame input iterations
+    let length = String.length result
+    printfn "%A" length
 
-let result1 = lookAndSayGame input 40
-let length1 = String.length result1
-printfn "%A" length1
-
-let result2 = lookAndSayGame input 50
-let length2 = String.length result2
-printfn "%A" length2
+run 40
+run 50
