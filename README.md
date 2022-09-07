@@ -5,7 +5,7 @@ Solutions to a few Advent of Code puzzles in different languages
 ## 2015 day 1: C#
 
 ```
-dotnet run aoc
+dotnet run
 ```
 
 ## 2015 day 2: Python
@@ -51,6 +51,12 @@ lein run
 ```
 
 ## 2015 day 9: Visual Basic
+
+```
+dotnet run
+```
+
+## 2015 day 10: F#
 
 ```
 dotnet run
