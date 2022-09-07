@@ -1,6 +1,6 @@
 # aoc-polyglot
 
-Solutions to a few Advent of Code puzzles in different languages
+Solutions to a few Advent of Code puzzles in different languages. To run a program, navigate to the corresponding folder and type the specified command
 
 ## 2015 day 1: C#
 
