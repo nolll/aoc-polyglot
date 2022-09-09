@@ -57,11 +57,9 @@ fn get_recursive_sum(data: serde_json::Value, include_red: bool) -> i64 {
 }
 
 fn parse_json(input: String) -> serde_json::Value {
-    let json: serde_json::Value = serde_json::from_str(&input).expect("json error");
-    return json;
+    return serde_json::from_str(&input).expect("json error");
 }
 
 fn read_input() -> String {
-    let s = fs::read_to_string("input.txt").expect("file error");
-    return s;
+    return fs::read_to_string("input.txt").expect("file error");
 }
