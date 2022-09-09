@@ -67,3 +67,9 @@ dotnet run
 ```
 kotlinc-jvm aoc.kt;kotlin AocKt
 ```
+
+## 2015 day 12: Rust
+
+```
+cargo run
+```
