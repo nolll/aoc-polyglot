@@ -77,7 +77,5 @@ cargo run
 ## 2015 day 13: Erlang
 
 ```
-werl
-c(aoc).
-aoc:run().
+erl -compile aoc;erl -noshell -s aoc run -s init stop
 ```
