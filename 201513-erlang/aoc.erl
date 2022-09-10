@@ -5,10 +5,22 @@ readfile(FileName) ->
     {ok, Binary} = file:read_file(FileName),
     string:tokens(erlang:binary_to_list(Binary), "\n").
 
+createGuest(Name) ->
+    #{
+        name => Name,
+        rules => []
+    }.
+
 run() ->
     Lines = readfile("input.txt"),
-    Length = length(Lines),
-    io:fwrite("lines: ~w~n", [Length]).
+    Guests = lists:map(
+        fun(Name) ->
+            createGuest(Name)
+        end,
+        Lines
+    ),
+    GuestCount = length(Guests),
+    io:fwrite("guests: ~w~n", [GuestCount]).
 
 % parseGuests(input, includeMe) ->
 %     Rules = readInput(input).
