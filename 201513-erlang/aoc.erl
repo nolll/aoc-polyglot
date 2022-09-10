@@ -8,7 +8,7 @@ readfile(FileName) ->
 run() ->
     Lines = readfile("input.txt"),
     Length = length(Lines),
-    io:fwrite("hello, world ~w~n", [Length]).
+    io:fwrite("lines: ~w~n", [Length]).
 
 % parseGuests(input, includeMe) ->
 %     Rules = readInput(input).
