@@ -99,8 +99,8 @@ calculateHappinessForOneGuest(Index, Guest, NameList) ->
         AllRules
     ),
     HappinessList = lists:map(
-        fun(X) ->
-            maps:get(happiness, X)
+        fun(Rule) ->
+            maps:get(happiness, Rule)
         end,
         FilteredRules
     ),
@@ -109,8 +109,8 @@ calculateHappinessForOneGuest(Index, Guest, NameList) ->
 calculateHappinessForOneList(NameList, Guests) ->
     NameListWithIndexes = lists:enumerate(1, NameList),
     HappinessList = lists:map(
-        fun({Index, X}) ->
-            Guest = maps:get(X, Guests),
+        fun({Index, Name}) ->
+            Guest = maps:get(Name, Guests),
             calculateHappinessForOneGuest(Index, Guest, NameList)
         end,
         NameListWithIndexes
@@ -119,8 +119,8 @@ calculateHappinessForOneList(NameList, Guests) ->
 
 calculateHappiness(NameLists, Guests) ->
     lists:map(
-        fun(X) ->
-            calculateHappinessForOneList(X, Guests)
+        fun(NameList) ->
+            calculateHappinessForOneList(NameList, Guests)
         end,
         NameLists
     ).
@@ -155,8 +155,8 @@ parseNextGuest(Rows, Guests) ->
 createGuestMap(IncludeMe) ->
     if
         IncludeMe ->
-            Guest = #{name => "Me", rules => []},
-            #{"Me" => Guest};
+            Name = "Me",
+            #{Name => #{name => Name, rules => []}};
         true ->
             #{}
     end.
