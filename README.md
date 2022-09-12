@@ -1,6 +1,6 @@
 # aoc-polyglot
 
-Solutions to a few Advent of Code puzzles in different languages. To run a program, navigate to the corresponding folder and type the specified command
+Solutions to a few Advent of Code puzzles in different languages. All run instructions are for Windows, but the code should run on any system. 
 
 ## 2015 day 1: C#
 
@@ -72,4 +72,10 @@ kotlinc-jvm aoc.kt;kotlin AocKt
 
 ```
 cargo run
+```
+
+## 2015 day 13: Erlang
+
+```
+erl -compile aoc;erl -noshell -s aoc run -s init stop
 ```
