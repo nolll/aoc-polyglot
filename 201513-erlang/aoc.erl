@@ -42,6 +42,9 @@ getGuest(Name, Guests) ->
         true -> createGuest(Name, [])
     end.
 
+permutations([]) -> [[]];
+permutations(L) -> [[H | T] || H <- L, T <- permutations(L -- [H])].
+
 parseGuest(Row, Guests) ->
     S1 = string:trim(Row),
     S2 = string:trim(S1, trailing, "."),
@@ -57,12 +60,88 @@ parseGuest(Row, Guests) ->
     Rule = createRule(OtherName, Happiness),
     createGuest(Name, lists:append(Rules, [Rule])).
 
+getNextIndex(Index, NameList) ->
+    Length = length(NameList),
+    NextIndex = Index + 1,
+    if
+        NextIndex > Length -> 1;
+        true -> NextIndex
+    end.
+
+getPrevIndex(Index, NameList) ->
+    Length = length(NameList),
+    PrevIndex = Index - 1,
+    if
+        PrevIndex < 1 -> Length;
+        true -> PrevIndex
+    end.
+
+calculateHappinessForOneGuest(Index, Guest, NameList) ->
+    PrevIndex = getPrevIndex(Index, NameList),
+    NextIndex = getNextIndex(Index, NameList),
+    PrevName = lists:nth(PrevIndex, NameList),
+    NextName = lists:nth(NextIndex, NameList),
+    AllRules = maps:get(rules, Guest),
+    FilteredRules = lists:filter(
+        fun(X) ->
+            Name = maps:get(name, X),
+            IsEqualToPrevName = string:equal(Name, PrevName),
+            IsEqualToNextName = string:equal(Name, NextName),
+            if
+                IsEqualToPrevName ->
+                    true;
+                IsEqualToNextName ->
+                    true;
+                true ->
+                    false
+            end
+        end,
+        AllRules
+    ),
+    HappinessList = lists:map(
+        fun(X) ->
+            maps:get(happiness, X)
+        end,
+        FilteredRules
+    ),
+    lists:sum(HappinessList).
+
+calculateHappinessForOneList(NameList, Guests) ->
+    NameListWithIndexes = lists:enumerate(1, NameList),
+    HappinessList = lists:map(
+        fun({Index, X}) ->
+            Guest = maps:get(X, Guests),
+            calculateHappinessForOneGuest(Index, Guest, NameList)
+        end,
+        NameListWithIndexes
+    ),
+    lists:sum(HappinessList).
+
+calculateHappiness(NameLists, Guests) ->
+    lists:map(
+        fun(X) ->
+            calculateHappinessForOneList(X, Guests)
+        end,
+        NameLists
+    ).
+
 run() ->
+    % Index = 2,
+    % List = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    % PrevIndex = getPrevIndex(Index, List),
+    % NextIndex = getNextIndex(Index, List),
+    % io:fwrite("indexes: ~w ~w ~w~n", [PrevIndex, Index, NextIndex]).
+
     Rows = readlines("input.txt"),
     Guests = parseGuests(Rows, false),
-    Keys = maps:keys(Guests),
-    Length = length(Keys),
-    io:fwrite("guests: ~w~n", [Length]).
+    Names = maps:keys(Guests),
+    NameLists = permutations(Names),
+    Happiness = calculateHappiness(NameLists, Guests),
+    MaxHappiness = lists:max(Happiness),
+    io:fwrite("happiness: ~w~n", [MaxHappiness]).
+% Length = length(Names),
+
+% io:fwrite("guest count: ~w~n", [Length]).
 
 parseGuests(Rows, IncludeMe) ->
     InitialGuests = createGuestMap(IncludeMe),
