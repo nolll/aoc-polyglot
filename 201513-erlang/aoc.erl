@@ -126,22 +126,19 @@ calculateHappiness(NameLists, Guests) ->
     ).
 
 run() ->
-    % Index = 2,
-    % List = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    % PrevIndex = getPrevIndex(Index, List),
-    % NextIndex = getNextIndex(Index, List),
-    % io:fwrite("indexes: ~w ~w ~w~n", [PrevIndex, Index, NextIndex]).
-
     Rows = readlines("input.txt"),
-    Guests = parseGuests(Rows, false),
-    Names = maps:keys(Guests),
-    NameLists = permutations(Names),
-    Happiness = calculateHappiness(NameLists, Guests),
-    MaxHappiness = lists:max(Happiness),
-    io:fwrite("happiness: ~w~n", [MaxHappiness]).
-% Length = length(Names),
+    Part1 = run(Rows, false),
+    io:fwrite("~w~n", [Part1]),
 
-% io:fwrite("guest count: ~w~n", [Length]).
+    Part2 = run(Rows, true),
+    io:fwrite("~w~n", [Part2]).
+
+run(Rows, IncludeMe) ->
+    Part2Guests = parseGuests(Rows, IncludeMe),
+    Part2Names = maps:keys(Part2Guests),
+    Part2NameLists = permutations(Part2Names),
+    Part2Happiness = calculateHappiness(Part2NameLists, Part2Guests),
+    lists:max(Part2Happiness).
 
 parseGuests(Rows, IncludeMe) ->
     InitialGuests = createGuestMap(IncludeMe),
@@ -158,7 +155,8 @@ parseNextGuest(Rows, Guests) ->
 createGuestMap(IncludeMe) ->
     if
         IncludeMe ->
-            #{name => "Me", rules => []};
+            Guest = #{name => "Me", rules => []},
+            #{"Me" => Guest};
         true ->
             #{}
     end.
