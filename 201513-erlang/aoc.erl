@@ -83,8 +83,8 @@ calculateHappinessForOneGuest(Index, Guest, NameList) ->
     NextName = lists:nth(NextIndex, NameList),
     AllRules = maps:get(rules, Guest),
     FilteredRules = lists:filter(
-        fun(X) ->
-            Name = maps:get(name, X),
+        fun(Rule) ->
+            Name = maps:get(name, Rule),
             IsEqualToPrevName = string:equal(Name, PrevName),
             IsEqualToNextName = string:equal(Name, NextName),
             if
