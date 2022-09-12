@@ -79,3 +79,9 @@ cargo run
 ```
 erl -compile aoc;erl -noshell -s aoc run -s init stop
 ```
+
+## 2015 day 14: Groovy
+
+```
+groovy .\aoc.groovy
+```
