@@ -1,17 +1,16 @@
+import scala.collection.mutable.ListBuffer
+
 @main def run: Unit = 
-  println("Hello world!")
-  println(msg)
+    val rows = readInputLines()
+    run(rows)
 
-def msg = "I was compiled by Scala 3. :)"
-
-def cookieBakery(input: String): Unit
-{
-    var ingredients = parseIngredients(input);
-    var combinations = getCombinations(ingredients.Count);
+def run(rows: List[String]): Unit = {
+    var ingredients = parseIngredients(rows);
+    var combinations = getCombinations(ingredients.length);
     var highestScore = 0;
     var highestScoreWith500Calories = 0;
 
-    foreach (var combination in combinations)
+    for (combination <- combinations)
     {
         var score = getScore(ingredients, combination);
         var calories = getCalories(ingredients, combination);
@@ -21,96 +20,97 @@ def cookieBakery(input: String): Unit
         if (calories == 500 && score > highestScoreWith500Calories)
             highestScoreWith500Calories = score;
     }
+
+    println(highestScore)
+    println(highestScoreWith500Calories)
 }
 
-def getScore(ingredients List[CookieIngredient], percentages List[Int]): Int
-{
+def getScore(ingredients: List[CookieIngredient], percentages: List[Int]): Int = {
     var capacity = 0;
     var durability = 0;
     var flavor = 0;
     var texture = 0;
 
-    for (var i = 0; i < ingredients.Count; i++)
+    for (i <- 0 until ingredients.length)
     {
-        capacity += percentages[i] * ingredients[i].Capacity;
-        durability += percentages[i] * ingredients[i].Durability;
-        flavor += percentages[i] * ingredients[i].Flavor;
-        texture += percentages[i] * ingredients[i].Texture;
+        capacity += percentages(i) * ingredients(i).capacity
+        durability += percentages(i) * ingredients(i).durability
+        flavor += percentages(i) * ingredients(i).flavor
+        texture += percentages(i) * ingredients(i).texture
     }
 
-    capacity = capacity > 0 ? capacity : 0;
-    durability = durability > 0 ? durability : 0;
-    flavor = flavor > 0 ? flavor : 0;
-    texture = texture > 0 ? texture : 0;
+    capacity = if (capacity > 0) capacity else 0
+    durability = if (durability > 0) durability else 0
+    flavor = if (flavor > 0) flavor else 0
+    texture = if (texture > 0) texture else 0
 
     return capacity * durability * flavor * texture;
 }
 
-def getCalories(ingredients: List[CookieIngredient], percentages: List[Int])
-{
+def getCalories(ingredients: List[CookieIngredient], percentages: List[Int]): Int = {
     var calories = 0;
 
-    for (var i = 0; i < ingredients.Count; i++)
+    for (i <- 0 until ingredients.length)
     {
-        calories += percentages[i] * ingredients[i].Calories;
+        calories += percentages(i) * ingredients(i).calories;
     }
 
-    return calories > 0 ? calories : 0;
+    if (calories > 0) calories else 0
 }
 
-def getCombinations(depth: Int): List[List[Int]]
-{
-    const int min = 0;
-    const int max = 100;
+def getCombinations(depth: Int): List[List[Int]] = {
+    val min = 0;
+    val max = 100;
 
-    var combinations = new List<List<int>>();
+    var combinations = new ListBuffer[List[Int]]();
 
     if (depth == 2)
     {
-        for (var a = min; a <= max; a++)
+        for (a <- min to max)
         {
             var b = max - a;
             if(a + b == max)
-                combinations.Add(new List<int>{a, b});
+                combinations += List(a, b);
         }
     }
 
     if (depth == 4)
     {
-        for (var a = min; a <= max; a++)
+        for (a <- min to max)
         {
-            for (var b = min; b <= max; b++)
+            for (b <- min to max)
             {
-                for (var c = min; c <= max; c++)
+                for (c <- min to max)
                 {
                     var d = max - a - b - c;
                     if (a + b + c + d == max)
-                        combinations.Add(new List<int> { a, b, c, d });
+                        combinations += List(a, b, c, d);
 
                 }
             }
         }
     }
 
-    return combinations;
+    return combinations.toList
 }
 
-def parseIngredients(input: String): List[CookieIngredient]
-{
-    var rows = PuzzleInputReader.ReadLines(input);
-    return rows.Select(ParseIngredient).ToList();
+def parseIngredients(rows: List[String]): List[CookieIngredient] = {
+    return rows.map(o => parseIngredient(o));
 }
 
-def parseIngredient(s: String): CookieIngredient
-{
-    var parts = s.Replace(":", "").Replace(",", "").Split(' ');
-    var name = parts[0];
-    var capacity = int.Parse(parts[2]);
-    var durability = int.Parse(parts[4]);
-    var flavor = int.Parse(parts[6]);
-    var texture = int.Parse(parts[8]);
-    var calories = int.Parse(parts[10]);
+def parseIngredient(s: String): CookieIngredient = {
+    var parts = s.replace(":", "").replace(",", "").split(' ');
+    var name = parts(0);
+    var capacity = parts(2).toInt;
+    var durability = parts(4).toInt;
+    var flavor = parts(6).toInt;
+    var texture = parts(8).toInt;
+    var calories = parts(10).toInt;
     return CookieIngredient(name, capacity, durability, flavor, texture, calories);
+}
+
+def readInputLines(): List[String] = {
+    scala.io.Source.fromFile("input.txt").getLines.toList
 }
 
 case class CookieIngredient(name: String, capacity: Int, durability: Int, flavor: Int, texture: Int, calories: Int)
