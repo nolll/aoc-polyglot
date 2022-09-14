@@ -5,7 +5,7 @@ import qualified Data.List as List
 main = do
     content <- readInput
     let rows = lines content
-    let sues = parseSues rows
+    let sues = map parseSue rows
 
     let suePart1 = findSuePart1 sues
     let suePart1Id = getSueId suePart1
@@ -17,6 +17,8 @@ main = do
 
 findSuePart1 sues = head (List.filter isCorrectSuePart1 sues)
 
+findSuePart2 sues = head (List.filter isCorrectSuePart2 sues)
+
 isCorrectSuePart1 sue = isEqualOrMissing "children" "3" sue &&
                         isEqualOrMissing "cats" "7" sue && 
                         isEqualOrMissing "samoyeds" "2" sue && 
@@ -27,8 +29,6 @@ isCorrectSuePart1 sue = isEqualOrMissing "children" "3" sue &&
                         isEqualOrMissing "trees" "3" sue && 
                         isEqualOrMissing "cars" "2" sue && 
                         isEqualOrMissing "perfumes" "1" sue
-
-findSuePart2 sues = head (List.filter isCorrectSuePart2 sues)
 
 isCorrectSuePart2 sue = isEqualOrMissing "children" "3" sue &&
                         isGreaterThanOrMissing "cats" "7" sue && 
@@ -43,9 +43,7 @@ isCorrectSuePart2 sue = isEqualOrMissing "children" "3" sue &&
 
 isEqualOrMissing key value sue = case Map.lookup key sue of   
     Nothing -> True
-    Just (v) -> if v == value
-                then True
-                else False
+    Just (v) -> v == value
 
 isGreaterThanOrMissing key value sue = case Map.lookup key sue of   
     Nothing -> True
@@ -58,22 +56,16 @@ isLessThanOrMissing key value sue = case Map.lookup key sue of
 isGreaterThan a b = do
     let intA = read a :: Integer
     let intB = read b :: Integer
-    if(intA > intB)
-    then True
-    else False
+    intA > intB
 
 isLessThan a b = do
     let intA = read a :: Integer
     let intB = read b :: Integer
-    if(intA < intB)
-    then True
-    else False
+    intA < intB
 
 getSueId sue = case Map.lookup "id" sue of   
     Nothing -> "not found"
     Just (v) -> v
-
-parseSues rows = map parseSue rows 
 
 parseSue row = do
     let stripped = removePunctuation row
@@ -86,8 +78,6 @@ parseSue row = do
     let n3 = parts!!6
     let v3 = parts!!7
     Map.fromList [("id", id), (n1, v1), (n2, v2), (n3, v3)]
-
-printSue sue = print sue
 
 removePunctuation s = filter (not . (`elem` ",:")) s
 
