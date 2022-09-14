@@ -85,3 +85,9 @@ erl -compile aoc;erl -noshell -s aoc run -s init stop
 ```
 groovy .\aoc.groovy
 ```
+
+## 2015 day 15: Scala
+
+```
+sbt run
+```
