@@ -91,3 +91,9 @@ groovy .\aoc.groovy
 ```
 sbt run
 ```
+
+## 2015 day 16: Haskell
+
+```
+ghc aoc.hs;./aoc.exe
+```
