@@ -103,3 +103,10 @@ ghc aoc.hs;./aoc.exe
 ```
 dart run
 ```
+
+## 2015 day 18: C++
+
+```
+cl /EHsc aoc.cpp
+aoc.exe
+```
