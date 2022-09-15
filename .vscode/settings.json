@@ -3,5 +3,10 @@
     "editor.inlayHints.enabled": "offUnlessPressed",
     "files.watcherExclude": {
         "**/target": true
+    },
+    "files.associations": {
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xiosbase": "cpp"
     }
 }
