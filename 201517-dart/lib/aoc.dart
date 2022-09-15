@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 
-run() {
-  var rows = readLines();
+run() async {
+  var rows = await readLines();
   var containers = EggnogContainers(rows);
 
   var part1Combinations = containers.getCombinations(150);
@@ -28,13 +28,10 @@ class EggnogContainers {
   }
 
   getSum(List<EggnogContainer> combination) {
-    return combination
-        .map((o) => o.volume)
-        .reduce((value, element) => value + element);
+    return combination.map((o) => o.volume).reduce((value, element) => value + element);
   }
 
-  List<List<EggnogContainer>> getCombinationsWithLeastContainers(
-      int targetVolume) {
+  List<List<EggnogContainer>> getCombinationsWithLeastContainers(int targetVolume) {
     var combinations = getCombinations(targetVolume);
     combinations.sort((a, b) => a.length.compareTo(b.length));
     var smallestCount = combinations.first.length;
@@ -66,10 +63,9 @@ class EggnogContainer {
 }
 
 class CombinationGenerator {
-  List<List<EggnogContainer>> getAllCombinations<T>(
-      List<EggnogContainer> list) {
-    var result =
-        List<List<EggnogContainer>>.from(List<EggnogContainer>.empty());
+  List<List<EggnogContainer>> getAllCombinations<T>(List<EggnogContainer> list) {
+    var result = <List<EggnogContainer>>[];
+    result.add(<EggnogContainer>[]);
     result.last.add(list[0]);
     if (list.length == 1) {
       return result;
@@ -84,9 +80,8 @@ class CombinationGenerator {
   }
 }
 
-readLines() {
-  File('resources/file.txt').readAsString().then((String content) {
-    var lineSplitter = LineSplitter();
-    return lineSplitter.convert(content);
-  });
+Future<List<String>> readLines() async {
+  var s = await File('./resources/input.txt').readAsString();
+  var lineSplitter = LineSplitter();
+  return lineSplitter.convert(s);
 }
