@@ -110,3 +110,9 @@ dart run
 cl /EHsc aoc.cpp
 aoc.exe
 ```
+
+## 2015 day 19: Julia
+
+```
+julia aoc.jl
+```
