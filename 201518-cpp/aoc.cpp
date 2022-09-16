@@ -9,12 +9,13 @@ class AnimatedGif
 {
 public:
     AnimatedGif(bool isCornersLit);
-    void runAnimation(int steps);
+    void runAnimation();
     int getLightCount();
 
 private:
-    int width = 1000;
-    int height = 1000;
+    int width = 100;
+    int height = 100;
+    int steps = 100;
     char lightOn = '#';
     char lightOff = '.';
     bool isCornersLit;
@@ -29,10 +30,11 @@ private:
     bool isValidCoord(int x, int y);
 };
 
-AnimatedGif::AnimatedGif(bool isCornersLit)
+AnimatedGif::AnimatedGif(bool isPart2)
 {
-    isCornersLit = isCornersLit;
-    matrix = buildMatrix();
+    isCornersLit = isPart2;
+    matrix = buildMatrixFromInput();
+    int count = getLightCount();
     if (isCornersLit)
         turnOnCornerLights();
 }
@@ -50,10 +52,11 @@ int AnimatedGif::getLightCount()
             }
         }
     }
+
     return count;
 }
 
-void AnimatedGif::runAnimation(int steps)
+void AnimatedGif::runAnimation()
 {
     for (int i = 0; i < steps; i++)
     {
@@ -69,6 +72,7 @@ void AnimatedGif::runAnimation(int steps)
         }
 
         matrix = newMatrix;
+
         if (isCornersLit)
             turnOnCornerLights();
     }
@@ -129,10 +133,10 @@ char AnimatedGif::getNewState(char value, int adjacentOnCount)
 
 vector<vector<char>> AnimatedGif::buildMatrix()
 {
-    vector<vector<char>> m(1000);
+    vector<vector<char>> m(height);
     for (int y = 0; y < height; y++)
     {
-        vector<char> row(1000, lightOff);
+        vector<char> row(width, lightOff);
         m[y] = row;
     }
 
@@ -164,8 +168,13 @@ vector<vector<char>> AnimatedGif::buildMatrixFromInput()
 
 int main()
 {
-    AnimatedGif gif(false);
-    gif.runAnimation(100);
-    int part1 = gif.getLightCount();
+    AnimatedGif gif1(false);
+    gif1.runAnimation();
+    int part1 = gif1.getLightCount();
     cout << part1 << endl;
+
+    AnimatedGif gif2(true);
+    gif2.runAnimation();
+    int part2 = gif2.getLightCount();
+    cout << part2 << endl;
 }
