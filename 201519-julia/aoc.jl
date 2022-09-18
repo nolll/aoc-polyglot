@@ -9,29 +9,31 @@ function getCalibrationMolecules(startMolecule, replacements)
     unique(molecules)
 end
 
-# function stepsToMake(molecule)
-#     steps = 0
-#     while molecule != "e"
-#         for replacement in _replacements
-#             pos = molecule.IndexOf(replacement.Right, StringComparison.InvariantCulture)
-#             if (pos >= 0)
-#                 molecule = replaceFirst(molecule, replacement.Right, replacement.Left)
-#                 steps++
-#                 break
-#             end
-#         end
-#     end
+function stepsToMake(molecule, replacements)
+    steps = 0
+    while molecule != "e"
+        for replacement in replacements
+            range = findfirst(replacement.right, molecule)
+            if !(isnothing(range))
+                molecule = replaceFirst(molecule, replacement.right, replacement.left)
+                steps = steps + 1
+                break
+            end
+        end
+    end
 
-#     steps
-# end
+    steps
+end
 
-# function replaceFirst(text, search, replace)
-#     pos = text.IndexOf(search, StringComparison.InvariantCulture)
-#     if pos < 0
-#         return text
-#     end
-#     string.Concat(text.Substring(0, pos), replace, text.Substring(pos + search.Length))
-# end
+function replaceFirst(text, search, replace)
+    range = findfirst(search, text)
+    if isnothing(range)
+        text
+    else
+        pos = range[1]
+        text[1:pos-1] * replace * text[pos+length(search):end]
+    end
+end
 
 function parseReplacement(s)
     parts = split(s, " => ")
@@ -76,12 +78,13 @@ end
 
 isless(a::MoleculeReplacement, b::MoleculeReplacement) = isless(a.right, b.right) || isless(length(a.right), length(b.right))
 
-# targetMolecule = "HOH"
 targetMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
 rows = readInput()
 replacements = map(parseReplacement, rows)
-sortedReplacements = sort(replacements, rev=true) # then by right
+sortedReplacements = sort(replacements, rev=true)
 
 calibrationMolecules = getCalibrationMolecules(targetMolecule, replacements)
-# print(calibrationMolecules)
-print(length(calibrationMolecules))
+println(length(calibrationMolecules))
+
+stepCount = stepsToMake(targetMolecule, replacements)
+println(stepCount)
