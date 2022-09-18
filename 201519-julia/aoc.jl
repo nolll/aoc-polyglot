@@ -47,7 +47,7 @@ function expand(inputMolecule, replacement)
         return String[]
     end
 
-    numberOfReplacements = length(staticParts)
+    numberOfReplacements = length(staticParts) - 1
     for i = 1:numberOfReplacements
         s = ""
         for j = 1:numberOfReplacements
@@ -76,10 +76,12 @@ end
 
 isless(a::MoleculeReplacement, b::MoleculeReplacement) = isless(a.right, b.right) || isless(length(a.right), length(b.right))
 
+# targetMolecule = "HOH"
 targetMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
 rows = readInput()
 replacements = map(parseReplacement, rows)
 sortedReplacements = sort(replacements, rev=true) # then by right
 
 calibrationMolecules = getCalibrationMolecules(targetMolecule, replacements)
+# print(calibrationMolecules)
 print(length(calibrationMolecules))
