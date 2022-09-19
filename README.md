@@ -116,3 +116,11 @@ aoc.exe
 ```
 julia aoc.jl
 ```
+
+## 2015 day 20: Haxe
+
+Very slow solution. Finishes in about 10 minutes.
+
+```
+haxe --main Aoc --interp
+```
