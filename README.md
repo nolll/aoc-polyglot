@@ -116,3 +116,9 @@ aoc.exe
 ```
 julia aoc.jl
 ```
+
+## 2015 day 20: Haxe
+
+```
+haxe --main Aoc --interp
+```
