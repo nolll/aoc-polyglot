@@ -15,9 +15,7 @@ defmodule Aoc do
         IO.puts(winner.points)
     end
 
-    def runGame(player, boss) do
-        attack(player, boss)
-    end
+    def runGame(player, boss), do: attack(player, boss)
 
     def attack(attacker, defender) do
         if(isAlive(defender)) do
@@ -27,13 +25,9 @@ defmodule Aoc do
         end
     end
 
-    def createPlayer() do
-        createRpgCharacter("Player", 10)
-    end
+    def createPlayer(), do: createRpgCharacter("Player", 10)
 
-    def createBoss() do
-        createRpgCharacter("Boss", 5)
-    end
+    def createBoss(), do: createRpgCharacter("Boss", 5)
 
     def createRpgCharacter(name, points) do
         %RpgCharacter{name: name, points: points}
@@ -74,9 +68,7 @@ defmodule Aoc do
         %RpgProperty{name: name, cost: cost, damage: damage, armor: armor}
     end
 
-    def isAlive(character) do
-        character.points > 0
-    end
+    def isAlive(character), do: character.points > 0
 
     def hurt(character, attack) do
         damage = getDamage(attack, character.armor)
@@ -92,6 +84,53 @@ defmodule Aoc do
             1
         end
     end
+
+    def permutations([]), do: [[]]
+    def permutations(list), do: for elem <- list, rest <- permutations(list--[elem]), do: [elem|rest]
+
+    # private IList<IList<RpgProperty>> GetPropertyCombinations()
+    # {
+    #     var weaponCombinations = GetWeaponCombinations();
+    #     var armorCombinations = GetArmorCombinations();
+    #     var ringCombinations = GetRingCombinations();
+
+    #     var combinations = new List<IList<RpgProperty>>();
+    #     foreach (var weaponCombination in weaponCombinations)
+    #     {
+    #         foreach (var armorCombination in armorCombinations)
+    #         {
+    #             foreach (var ringCombination in ringCombinations)
+    #             {
+    #                 var combination = new List<RpgProperty>();
+    #                 combination.AddRange(weaponCombination);
+    #                 combination.AddRange(armorCombination);
+    #                 combination.AddRange(ringCombination);
+    #                 combinations.Add(combination);
+    #             }
+    #         }
+    #     }
+
+    #     return combinations;
+    # }
+
+    def getWeaponCombinations() do
+        weapons = createWeapons()
+        weapons.map(fn {weapon} -> {[weapon]} end)
+    end
+
+    def getArmorCombinations() do
+        armors = createArmor();
+        combinations = armors.map(fn {armor} -> {[armor]} end)
+        [[]] ++ combinations
+    end
+    
+    # private IList<List<RpgProperty>> GetRingCombinations()
+    # {
+    #     var combinations = new List<List<RpgProperty>> { new List<RpgProperty>() };
+    #     combinations.AddRange(_rings.Select(ring => new List<RpgProperty> { ring }));
+    #     combinations.AddRange(PermutationGenerator.GetPermutations(_rings, 2).Select(o => o.ToList()).ToList());
+    #     return combinations;
+    # }
 end
 
 Aoc.run()
