@@ -124,3 +124,9 @@ Very slow solution. Finishes in about 10 minutes.
 ```
 haxe --main Aoc --interp
 ```
+
+## 2015 day 21: Elixir
+
+```
+elixir aoc.exs
+```
