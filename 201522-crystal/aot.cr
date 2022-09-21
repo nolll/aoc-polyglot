@@ -55,6 +55,7 @@ class WizardRpgSimulator
 
       if !newBoss.isAlive
         costs.push(newCost)
+        i += 1
         next
       end
 
@@ -66,6 +67,7 @@ class WizardRpgSimulator
       end
 
       if hasCastSpell
+        i += 1
         next
       end
 
@@ -83,10 +85,12 @@ class WizardRpgSimulator
 
       if !newBoss.isAlive
         costs.push(newCost)
+        i += 1
         next
       end
 
       if !newPlayer.isAlive
+        i += 1
         next
       end
 
@@ -163,3 +167,4 @@ bossDamage = 10
 
 simulator = WizardRpgSimulator.new(1)
 cost = simulator.winWithLowestCost(bossPoints, bossDamage)
+puts cost
