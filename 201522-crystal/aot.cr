@@ -1,5 +1,5 @@
 class WizardRpgSimulator
-  def initialize(@gameMode : Int64)
+  def initialize(@gameMode : Int32)
     @spells = [
       WizardRpgSpell.new("Magic Missile", 53, 4, 0, 0, 0, 0),
       WizardRpgSpell.new("Drain", 73, 2, 0, 2, 0, 0),
@@ -17,8 +17,8 @@ class WizardRpgSimulator
     lowest
   end
 
-  def run(boss, player, effects, cost)
-    costs = [] of Int64
+  def run(boss, player, effects, cost) : Int32
+    costs = [] of Int32
     i = 0
     while i < @spells.size
       spell = @spells[i]
@@ -113,7 +113,7 @@ class WizardRpgSpell
   property recharge
   property timer
 
-  def initialize(@name : String, @cost : Int64, @damage : Int64, @armor : Int64, @healing : Int64, @recharge : Int64, @timer : Int64)
+  def initialize(@name : String, @cost : Int32, @damage : Int32, @armor : Int32, @healing : Int32, @recharge : Int32, @timer : Int32)
   end
 
   def getEffect
@@ -129,7 +129,7 @@ class WizardRpgEffect
   property recharge
   property timer
 
-  def initialize(@name : String, @damage : Int64, @armor : Int64, @healing : Int64, @recharge : Int64, @timer : Int64)
+  def initialize(@name : String, @damage : Int32, @armor : Int32, @healing : Int32, @recharge : Int32, @timer : Int32)
   end
 end
 
@@ -137,7 +137,7 @@ class WizardRpgCharacter
   property points
   property damage
 
-  def initialize(@points : Int64, @damage : Int64)
+  def initialize(@points : Int32, @damage : Int32)
   end
 
   def isAlive
@@ -148,7 +148,7 @@ end
 class WizardRpgPlayer < WizardRpgCharacter
   property mana
 
-  def initialize(@mana : Int64, @points : Int64, @damage : Int64)
+  def initialize(@mana : Int32, @points : Int32, @damage : Int32)
   end
 end
 
