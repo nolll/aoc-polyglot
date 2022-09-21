@@ -10,10 +10,10 @@ defmodule Aoc do
     def run() do
         boss = createBoss(104, 8, 1)
         propertyCombinations = getPropertyCombinations()
-        lowestCost = findLowest(propertyCombinations, boss)
-        IO.puts(lowestCost)
-        highestCost = findHighest(propertyCombinations, boss)
-        IO.puts(highestCost)
+        lowestCostToWin = findLowest(propertyCombinations, boss)
+        IO.puts(lowestCostToWin)
+        highestCostToLose = findHighest(propertyCombinations, boss)
+        IO.puts(highestCostToLose)
     end
 
     def findLowest(propertyCombinations, boss), do: findLowest(propertyCombinations, boss, 99999999999999)
@@ -33,8 +33,8 @@ defmodule Aoc do
         [head | tail] = propertyCombinations
         player = createPlayer(head)
         winner = runGame(player, boss)
-        didPlayerWin = if winner.name == "Player", do: true, else: false
-        newHighest = if didPlayerWin, do: max(highest, cost(head)), else: highest
+        didBossWin = if winner.name == "Boss", do: true, else: false
+        newHighest = if didBossWin, do: max(highest, cost(head)), else: highest
         findHighest(tail, boss, newHighest)
     end
 
