@@ -50,6 +50,7 @@ class WizardRpgSimulator
       ib = 0
       while ib < newEffects.size
         newEffects[ib].timer -= 1
+        ib += 1
       end
 
       if !newBoss.isAlive
@@ -76,6 +77,7 @@ class WizardRpgSimulator
       ip = 0
       while ip < newEffects.size
         newEffects[ip].timer -= 1
+        ip += 1
       end
       newEffects = newEffects.select { |o| o.timer > 0 }
 
@@ -92,6 +94,7 @@ class WizardRpgSimulator
       if nextCost > 0
         costs.push(nextCost)
       end
+      i += 1
     end
 
     return costs.any? ? costs.min : 0
