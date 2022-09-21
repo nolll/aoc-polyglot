@@ -8,11 +8,38 @@ end
 
 defmodule Aoc do
     def run() do
-        boss = createBoss()
-        player = createPlayer()
+        boss = createBoss(104, 8, 1)
+        propertyCombinations = getPropertyCombinations()
+        lowestCost = findLowest(propertyCombinations, boss)
+        IO.puts(lowestCost)
+        highestCost = findHighest(propertyCombinations, boss)
+        IO.puts(highestCost)
+    end
+
+    def findLowest(propertyCombinations, boss), do: findLowest(propertyCombinations, boss, 99999999999999)
+    def findLowest([], _boss, lowest), do: lowest
+    def findLowest(propertyCombinations, boss, lowest) do
+        [head | tail] = propertyCombinations
+        player = createPlayer(head)
         winner = runGame(player, boss)
-        IO.puts(winner.name)
-        IO.puts(winner.points)
+        didPlayerWin = if winner.name == "Player", do: true, else: false
+        newLowest = if didPlayerWin, do: min(lowest, cost(head)), else: lowest
+        findLowest(tail, boss, newLowest)
+    end
+
+    def findHighest(propertyCombinations, boss), do: findHighest(propertyCombinations, boss, -1)
+    def findHighest([], _boss, highest), do: highest
+    def findHighest(propertyCombinations, boss, highest) do
+        [head | tail] = propertyCombinations
+        player = createPlayer(head)
+        winner = runGame(player, boss)
+        didPlayerWin = if winner.name == "Player", do: true, else: false
+        newHighest = if didPlayerWin, do: max(highest, cost(head)), else: highest
+        findHighest(tail, boss, newHighest)
+    end
+
+    def cost(properties) do
+        Enum.sum(Enum.map(properties, fn p -> p.cost end))
     end
 
     def runGame(player, boss), do: attack(player, boss)
@@ -25,12 +52,18 @@ defmodule Aoc do
         end
     end
 
-    def createPlayer(), do: createRpgCharacter("Player", 10)
+    def createPlayer(), do: createPlayer(0, 0)
+    def createPlayer(damage, armor), do: createRpgCharacter("Player", 100, damage, armor)
+    def createPlayer(properties) do
+        damage = Enum.sum(Enum.map(properties, fn p -> p.damage end))
+        armor = Enum.sum(Enum.map(properties, fn p -> p.armor end))
+        createPlayer(damage, armor)
+    end
 
-    def createBoss(), do: createRpgCharacter("Boss", 5)
+    def createBoss(points, damage, armor), do: createRpgCharacter("Boss", points, damage, armor)
 
-    def createRpgCharacter(name, points) do
-        %RpgCharacter{name: name, points: points}
+    def createRpgCharacter(name, points, damage, armor) do
+        %RpgCharacter{name: name, points: points, damage: damage, armor: armor}
     end
 
     def createWeapons() do
@@ -85,52 +118,60 @@ defmodule Aoc do
         end
     end
 
-    def permutations([]), do: [[]]
-    def permutations(list), do: for elem <- list, rest <- permutations(list--[elem]), do: [elem|rest]
+    def getPropertyCombinations() do
+        weaponCombinations = getWeaponCombinations()
+        armorCombinations = getArmorCombinations()
+        ringCombinations = getRingCombinations()
+        combineWeapons([], weaponCombinations, armorCombinations, ringCombinations)
+    end
 
-    # private IList<IList<RpgProperty>> GetPropertyCombinations()
-    # {
-    #     var weaponCombinations = GetWeaponCombinations();
-    #     var armorCombinations = GetArmorCombinations();
-    #     var ringCombinations = GetRingCombinations();
+    def combineWeapons(combinations, [], _armorCombinations, _ringCombinations), do: combinations
+    def combineWeapons(combinations, weaponCombinations, armorCombinations, ringCombinations) do
+        [head | tail] = weaponCombinations
+        a = combineArmors(combinations, head, armorCombinations, ringCombinations)
+        b = combineWeapons(combinations, tail, armorCombinations, ringCombinations)
+        combinations ++ a ++ b
+    end
 
-    #     var combinations = new List<IList<RpgProperty>>();
-    #     foreach (var weaponCombination in weaponCombinations)
-    #     {
-    #         foreach (var armorCombination in armorCombinations)
-    #         {
-    #             foreach (var ringCombination in ringCombinations)
-    #             {
-    #                 var combination = new List<RpgProperty>();
-    #                 combination.AddRange(weaponCombination);
-    #                 combination.AddRange(armorCombination);
-    #                 combination.AddRange(ringCombination);
-    #                 combinations.Add(combination);
-    #             }
-    #         }
-    #     }
+    def combineArmors(combinations, _weaponCombination, [], _ringCombinations), do: combinations
+    def combineArmors(combinations, weaponCombination, armorCombinations, ringCombinations) do
+        [head | tail] = armorCombinations
+        a = combineRings(combinations, weaponCombination, head, ringCombinations)
+        b = combineArmors(combinations, weaponCombination, tail, ringCombinations)
+        combinations ++ a ++ b
+    end
 
-    #     return combinations;
-    # }
+    def combineRings(combinations, _weaponCombination, _armorCombination, []), do: combinations
+    def combineRings(combinations, weaponCombination, armorCombination, ringCombinations) do
+        [head | tail] = ringCombinations
+        a = [weaponCombination ++ armorCombination ++ head]
+        b = combineRings(combinations, weaponCombination, armorCombination, tail)
+        combinations ++ a ++ b
+    end
 
     def getWeaponCombinations() do
         weapons = createWeapons()
-        weapons.map(fn {weapon} -> {[weapon]} end)
+        Enum.map(weapons, fn weapon -> [weapon] end)
     end
 
     def getArmorCombinations() do
         armors = createArmor();
-        combinations = armors.map(fn {armor} -> {[armor]} end)
+        combinations = Enum.map(armors, fn armor -> [armor] end)
         [[]] ++ combinations
     end
-    
-    # private IList<List<RpgProperty>> GetRingCombinations()
-    # {
-    #     var combinations = new List<List<RpgProperty>> { new List<RpgProperty>() };
-    #     combinations.AddRange(_rings.Select(ring => new List<RpgProperty> { ring }));
-    #     combinations.AddRange(PermutationGenerator.GetPermutations(_rings, 2).Select(o => o.ToList()).ToList());
-    #     return combinations;
-    # }
+
+    def getRingCombinations() do
+        rings = createRings();
+        oneRingCombinations = Enum.map(rings, fn ring -> [ring] end)
+        twoRingCombinations = combinations(2, rings);
+        [[]] ++ oneRingCombinations ++ twoRingCombinations
+    end
+
+    defp combinations(0, _), do: [[]]
+    defp combinations(_, []), do: []
+    defp combinations(size, [head | tail]) do 
+        (for elem <- combinations(size-1, tail), do: [head|elem]) ++ combinations(size, tail)
+    end
 end
 
 Aoc.run()
