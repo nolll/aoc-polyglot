@@ -130,3 +130,9 @@ haxe --main Aoc --interp
 ```
 elixir aoc.exs
 ```
+
+## 2015 day 22: Crystal
+
+```
+crystal aot.cr
+```
