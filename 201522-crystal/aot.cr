@@ -7,11 +7,13 @@ class WizardRpgSimulator
       WizardRpgSpell.new("Poison", 173, 3, 0, 0, 0, 6),
       WizardRpgSpell.new("Recharge", 229, 0, 0, 0, 101, 5),
     ]
+
+    @count = 0
   end
 
   def winWithLowestCost(bossPoints, bossDamage)
     boss = WizardRpgBoss.new(bossPoints, bossDamage)
-    player = WizardRpgPlayer.new(500, 50, 0)
+    player = WizardRpgPlayer.new(500, 50)
     lowest = run(boss, player, [] of WizardRpgEffect, 0)
 
     lowest
@@ -23,11 +25,11 @@ class WizardRpgSimulator
     while i < @spells.size
       spell = @spells[i]
       newBoss = WizardRpgBoss.new(boss.points, boss.damage)
-      newPlayer = WizardRpgPlayer.new(player.mana, player.points, player.damage)
+      newPlayer = WizardRpgPlayer.new(player.mana, player.points)
       newCost = cost + spell.cost
 
       if @gameMode == 2
-        newPlayer.points += 1
+        newPlayer.points -= 1
       end
 
       newEffects = effects.map { |o| WizardRpgEffect.new(o.name, o.damage, o.armor, o.healing, o.recharge, o.timer) }
@@ -60,13 +62,14 @@ class WizardRpgSimulator
       end
 
       newEffects = newEffects.select { |o| o.timer > 0 }
+
       if newEffect.timer > 0 && canCastSpell(newEffects, player, spell)
         newPlayer.mana -= spell.cost
         newEffects.push(newEffect)
         hasCastSpell = true
       end
 
-      if hasCastSpell
+      if !hasCastSpell
         i += 1
         next
       end
@@ -106,7 +109,7 @@ class WizardRpgSimulator
 
   def canCastSpell(effects, player, spell)
     canAffordSpell = player.mana >= spell.cost
-    spellAlreadyCast = effects.map { |o| o.name == spell.name }.size > 0
+    spellAlreadyCast = effects.select { |o| o.name == spell.name }.size > 0
     canAffordSpell && !spellAlreadyCast
   end
 end
@@ -140,7 +143,19 @@ class WizardRpgEffect
   end
 end
 
-class WizardRpgCharacter
+class WizardRpgPlayer
+  property mana
+  property points
+
+  def initialize(@mana : Int32, @points : Int32)
+  end
+
+  def isAlive
+    @points > 0
+  end
+end
+
+class WizardRpgBoss
   property points
   property damage
 
@@ -152,19 +167,13 @@ class WizardRpgCharacter
   end
 end
 
-class WizardRpgPlayer < WizardRpgCharacter
-  property mana
-
-  def initialize(@mana : Int32, @points : Int32, @damage : Int32)
-  end
-end
-
-class WizardRpgBoss < WizardRpgCharacter
-end
-
 bossPoints = 71
 bossDamage = 10
 
-simulator = WizardRpgSimulator.new(1)
-cost = simulator.winWithLowestCost(bossPoints, bossDamage)
-puts cost
+simulator1 = WizardRpgSimulator.new(1)
+part1 = simulator1.winWithLowestCost(bossPoints, bossDamage)
+puts part1
+
+simulator2 = WizardRpgSimulator.new(2)
+part2 = simulator2.winWithLowestCost(bossPoints, bossDamage)
+puts part2
