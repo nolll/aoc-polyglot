@@ -134,13 +134,13 @@ elixir aoc.exs
 ## 2015 day 22: Crystal
 
 ```
-crystal aot.cr
+crystal aoc.cr
 ```
 
 ## 2015 day 23: Perl
 
 ```
-perl aot.pl
+perl aoc.pl
 ```
 
 ## 2015 day 24: Nim
