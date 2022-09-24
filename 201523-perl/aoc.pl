@@ -4,7 +4,12 @@ use warnings;
 use File::Slurp;
 
 my %registers1 = run(0);
-print $registers1{"b"};
+my $result1 = $registers1{"b"};
+print "$result1\n";
+
+my %registers2 = run(1);
+my $result2 = $registers2{"b"};
+print "$result2\n";
 
 sub readLines{
     my $content = read_file("input.txt");
@@ -12,11 +17,12 @@ sub readLines{
 }
 
 sub run {
-    my($a);
-    my %registers = ("a" => 0, "b" => 0);
+    my ($a) = @_;
+    my %registers = ("a" => $a, "b" => 0);
 
     my @instructions = readLines();
     my $pointer = 0;
+    my $counter = 0;
 
     while ( $pointer >= 0 && $pointer < scalar(@instructions)) {
         my $instruction = $instructions[$pointer];
@@ -70,7 +76,7 @@ sub run {
         {
             $register = substr($parts[1], 0, 1);
             my $offset = $parts[2];
-            
+
             if ($registers{$register} == 1)
             {
                 $pointer += $offset;
@@ -80,6 +86,8 @@ sub run {
                 $pointer++;
             }
         }
+
+        $counter++;
     }
 
     return %registers;
