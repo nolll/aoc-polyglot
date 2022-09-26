@@ -142,3 +142,9 @@ crystal aoc.cr
 ```
 perl aoc.pl
 ```
+
+## 2015 day 24: Nim
+
+```
+nim c -r --verbosity:0 aoc.nim
+```
