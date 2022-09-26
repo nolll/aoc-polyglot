@@ -2,155 +2,28 @@
 
 Solutions to a few Advent of Code puzzles in different languages. All run instructions are for Windows, but the code should run on any system. 
 
-## 2015 day 1: C#
-
-```
-dotnet run
-```
-
-## 2015 day 2: Python
-
-```
-python aoc.py
-```
-
-## 2015 day 3: Javascript
-
-```
-node aoc.js
-```
-
-## 2015 day 4: Go
-
-```
-go run aoc.go
-```
-
-## 2015 day 5: Ruby
-
-```
-ruby aoc.rb
-```
-
-## 2015 day 6: Typescript
-
-```
-npx ts-node aoc.ts
-```
-
-## 2015 day 7: Java
-
-```
-javac aoc.java;java aoc
-```
-
-## 2015 day 8: Clojure
-
-```
-lein run
-```
-
-## 2015 day 9: Visual Basic
-
-```
-dotnet run
-```
-
-## 2015 day 10: F#
-
-```
-dotnet run
-```
-
-## 2015 day 11: Kotlin
-
-```
-kotlinc-jvm aoc.kt;kotlin AocKt
-```
-
-## 2015 day 12: Rust
-
-```
-cargo run
-```
-
-## 2015 day 13: Erlang
-
-```
-erl -compile aoc;erl -noshell -s aoc run -s init stop
-```
-
-## 2015 day 14: Groovy
-
-```
-groovy .\aoc.groovy
-```
-
-## 2015 day 15: Scala
-
-```
-sbt run
-```
-
-## 2015 day 16: Haskell
-
-```
-ghc aoc.hs;./aoc.exe
-```
-
-## 2015 day 17: Dart
-
-```
-dart run
-```
-
-## 2015 day 18: C++
-
-```
-cl /EHsc aoc.cpp
-aoc.exe
-```
-
-## 2015 day 19: Julia
-
-```
-julia aoc.jl
-```
-
-## 2015 day 20: Haxe
-
-Very slow solution. Finishes in about 10 minutes.
-
-```
-haxe --main Aoc --interp
-```
-
-## 2015 day 21: Elixir
-
-```
-elixir aoc.exs
-```
-
-## 2015 day 22: Crystal
-
-```
-crystal aoc.cr
-```
-
-## 2015 day 23: Perl
-
-```
-perl aoc.pl
-```
-
-## 2015 day 24: Nim
-
-```
-nim c -r --verbosity:0 aoc.nim
-```
-
-## 2015 day 25: Lua
-
-```
-lua aoc.lua
-```
+- [Day 1 2015: C#](201501-csharp)
+- [Day 2 2015: Python](201502-python)
+- [Day 3 2015: Javascript](201503-javascript)
+- [Day 4 2015: Go](201504-go)
+- [Day 5 2015: Ruby](201505-ruby)
+- [Day 6 2015: Typescript](201506-typescript)
+- [Day 7 2015: Java](201507-java)
+- [Day 8 2015: Clojure](201508-clojure)
+- [Day 9 2015: Visual Basic](201509-visualbasic)
+- [Day 10 2015: F#](201510-fsharp)
+- [Day 11 2015: Kotlin](201511-kotlin)
+- [Day 12 2015: Rust](201512-rust)
+- [Day 13 2015: Erlang](201513-erlang)
+- [Day 14 2015: Groovy](201514-groovy)
+- [Day 15 2015: Scala](201515-scala)
+- [Day 16 2015: Haskell](201516-haskell)
+- [Day 17 2015: Dart](201517-dart)
+- [Day 18 2015: C++](201518-cpp)
+- [Day 19 2015: Julia](201519-julia)
+- [Day 20 2015: Haxe](201520-haxe)
+- [Day 21 2015: Elixir](201521-elixir)
+- [Day 22 2015: Crystal](201522-crystal)
+- [Day 23 2015: Perl](201523-perl)
+- [Day 24 2015: Nim](201524-nim)
+- [Day 25 2015: Lua](201525-lua)
