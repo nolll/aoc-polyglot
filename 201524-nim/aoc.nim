@@ -7,7 +7,7 @@ proc comb[T](a: openarray[T]; n: int; use: seq[bool]): seq[seq[T]] =
   result = newSeq[seq[T]]()
   var use = use
   if n <= 0: return
-  for i in 0  .. a.high:
+  for i in 0 .. a.high:
     if not use[i]:
       if n == 1:
         result.add(@[a[i]])
