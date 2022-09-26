@@ -1,4 +1,4 @@
-## 2015 day 25: Lua
+## Day 25 2015: Lua
 
 ```
 lua aoc.lua
