@@ -68,15 +68,25 @@ function hasAllLowFactors(target) {
 		return false;
 	if (target % 3 != 0)
 		return false;
+	if (target % 4 != 0)
+		return false;
 	if (target % 5 != 0)
 		return false;
+	if (target % 6 != 0)
+		return false;
 	if (target % 7 != 0)
+		return false;
+	if (target % 8 != 0)
+		return false;
+	if (target % 9 != 0)
+		return false;
+	if (target % 10 != 0)
 		return false;
 	return true;
 }
 
 function deliver2(target) {
-	var houses:Map<Int, Int> = [];
+	var houses:haxe.ds.Vector<Int> = new haxe.ds.Vector(target * 11);
 	var elf = 1;
 
 	while (elf <= target / 11) {
@@ -87,8 +97,7 @@ function deliver2(target) {
 			if (oldVal == null) {
 				oldVal = 0;
 			}
-			var totalVal = oldVal + val;
-			houses[house] = totalVal;
+			houses[house] = oldVal + val;
 			house = house + elf;
 		}
 
