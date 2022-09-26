@@ -149,8 +149,4 @@ perl aoc.pl
 nim c -r --verbosity:0 aoc.nim
 ```
 
-## 2015 day 25: Lua
-
-```
-lua aoc.lua
-```
+- [Day 25 2015: Lua](201525-lua/README.md)
