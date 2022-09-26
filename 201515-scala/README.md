@@ -1,4 +1,4 @@
-## Day 15 2015: Scala
+# Day 15 2015: Scala
 
 ```
 sbt run

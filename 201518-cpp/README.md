@@ -1,4 +1,4 @@
-## Day 18 2015: C++
+# Day 18 2015: C++
 
 ```
 cl /EHsc aoc.cpp
