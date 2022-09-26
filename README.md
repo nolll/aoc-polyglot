@@ -148,3 +148,9 @@ perl aoc.pl
 ```
 nim c -r --verbosity:0 aoc.nim
 ```
+
+## 2015 day 25: Lua
+
+```
+lua aoc.lua
+```
